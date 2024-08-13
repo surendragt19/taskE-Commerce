@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .order-item {
+            margin-bottom: 15px;
+        }
+        .order-item h5 {
+            margin: 0;
+        }
+        .order-item p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Order History</h2>
+
+        <% if (orders.length > 0) { %>
+            <% orders.forEach(order => { %>
+                <div class="order-item card p-3 mb-3">
+                    <h5>Order ID: <%= order._id %></h5>
+                    <p><strong>Total Amount:</strong> ₹<%= order.total.toFixed(2) %></p>
+                    <p><strong>Order Date:</strong> <%= new Date(order.createdAt).toLocaleDateString() %></p>
+                    
+                    <h6>Items:</h6>
+                    <ul>
+                        <% order.items.forEach(item => { %>
+                            <li>
+                                <strong>Product:</strong> <%= item.productId.name %> - 
+                                <strong>Quantity:</strong> <%= item.quantity %> - 
+                                <strong>Price:</strong> ₹<%= item.productId.price.toFixed(2) %>
+                            </li>
+                        <% }) %>
+                    </ul>
+                  
+                </div>
+            <% }) %>
+            <div style="display: flex;justify-content: center;">
+                <a href="/product/viewProduct" class="btn btn-info text-center">View Products</a></div>
+        <% } else { %>
+            <p class="text-center"><%= message %></p>
+        <% } %>
+
+    </div>
+</body>
+</html>

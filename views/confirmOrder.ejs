@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .confirmation-container {
+            margin-top: 50px;
+        }
+        .confirmation-details {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container confirmation-container">
+        <h2 class="text-center">Order Confirmation</h2>
+    
+        <% if (order) { %>
+            <div class="confirmation-details">
+                <p class="text-center">Thank you for your order!</p>
+                <p class="text-center">Your order has been successfully placed.</p>
+                <p class="text-center">Order Summary:</p>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Order ID:</strong> <%= order._id %></li>
+                    <li class="list-group-item"><strong>Total Amount:</strong> ₹<%= order.total.toFixed(2) %></li>
+                    <% order.items.forEach(item => { %>
+                        <li class="list-group-item">
+                            <strong>Product:</strong> <%= item.productId.name %> - 
+                            <strong>Quantity:</strong> <%= item.quantity %> - 
+                            <strong>Price:</strong> ₹<%= (item.productId.price * item.quantity).toFixed(2) %>
+                        </li>
+                    <% }) %>
+                </ul>
+                <div class="text-center mt-4">
+                    <a href="/cart/orderHistory" class="btn btn-warning">View Order History</a>
+                </div>
+            </div>
+        <% } else { %>
+            <div class="text-center">
+                <p>No order details available.</p>
+                <a href="/cart/viewProduct" class="btn btn-info">View More Products</a>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

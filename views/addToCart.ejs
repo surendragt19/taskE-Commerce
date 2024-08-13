@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to Cart</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #products {
+            margin-bottom: 20px;
+        }
+        .card-body p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">All Products</h2>
+        <a href="/user/logout" class="btn btn-danger" style="margin-bottom:10px;">Log Out</a>
+        <a href="/cart/orderHistory" class="btn btn-warning" style="margin-bottom:10px;">Order History</a>
+        <% if (allProduct && allProduct.length > 0) { %>
+            <% allProduct.forEach(product => { %>
+                <div id="products">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= product.name %></h5>
+                            <p class="card-text"><strong>Price:</strong> ₹<%= product.price.toFixed(2) %></p>
+                            <% if (product.quantity !== undefined) { %>
+                                <p class="card-text"><strong>Quantity Available:</strong> <%= product.quantity %></p>
+                            <% } %>
+                        </div>
+                        <form action="/cart/addCart" method="post">
+                            <input type="hidden" name="productId" value="<%= product._id %>" required>
+                            <input style="margin:10px" type="number" name="quantity" min="1" value="1" required>
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>                    
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center">No products available.</p>
+        <% } %>
+
+    </div>
+</body>
+</html>

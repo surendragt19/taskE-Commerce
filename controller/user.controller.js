@@ -20,7 +20,7 @@ const registerController=async(req,res)=>{
             password:hashPassword,
             email
         })
-        res.redirect('/user/login')
+        res.redirect('/login')
     } catch (error) {
         return res.status(500).json({message:'Server Error'})
     }

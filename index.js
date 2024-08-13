@@ -15,7 +15,7 @@ app.use(cookieParser())
 
 app.set("view engine","ejs")
 
-app.use('/user',userRouter)
+app.use('/',userRouter)
 app.use('/product',productRouter)
 app.use('/cart',cartRouter)
 

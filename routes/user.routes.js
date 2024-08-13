@@ -8,7 +8,7 @@ router.post('/login',loginController)
 
 router.get('/logout',(req,res)=>{
     res.clearCookie('token')
-    res.redirect('/user/login')
+    res.redirect('/login')
 })
 
 router.get('/',(req,res)=>{
